@@ -1,22 +1,27 @@
 #mci-fab {
-    position: fixed;
-    bottom: 90px;
-    right: 16px;
-    width: 48px;
-    height: 48px;
-    border-radius: 50%;
-    background: var(--SmartThemeBlurTintColor, rgba(30, 30, 30, 0.9));
-    color: var(--SmartThemeBodyColor, #fff);
-    border: 1px solid var(--SmartThemeBorderColor, rgba(255, 255, 255, 0.3));
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    z-index: 99999;
-    cursor: pointer;
-    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.4);
-    font-size: 18px;
-    user-select: none;
-    -webkit-tap-highlight-color: transparent;
+    position: fixed !important;
+    top: calc(60px + env(safe-area-inset-top, 0px)) !important;
+    right: calc(10px + env(safe-area-inset-right, 0px)) !important;
+    bottom: auto !important;
+    left: auto !important;
+    width: 52px !important;
+    height: 52px !important;
+    border-radius: 50% !important;
+    background: var(--SmartThemeBlurTintColor, #2b2b2b) !important;
+    color: var(--SmartThemeBodyColor, #fff) !important;
+    border: 2px solid rgba(255, 255, 255, 0.5) !important;
+    display: flex !important;
+    align-items: center !important;
+    justify-content: center !important;
+    z-index: 2147483647 !important;
+    cursor: pointer !important;
+    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.6) !important;
+    font-size: 20px !important;
+    user-select: none !important;
+    -webkit-tap-highlight-color: transparent !important;
+    opacity: 1 !important;
+    visibility: visible !important;
+    pointer-events: auto !important;
 }
 
 #mci-fab.mci-active {
@@ -26,16 +31,16 @@
 }
 
 #mci-highlight {
-    position: absolute;
-    z-index: 99998;
-    pointer-events: none;
+    position: absolute !important;
+    z-index: 2147483646 !important;
+    pointer-events: none !important;
     outline: 2px solid #ff5252;
     background: rgba(255, 82, 82, 0.15);
     box-sizing: border-box;
 }
 
 #mci-panel {
-    position: fixed;
+    position: fixed !important;
     left: 0;
     right: 0;
     bottom: 0;
@@ -44,7 +49,7 @@
     background: var(--SmartThemeBlurTintColor, #1e1e1e);
     color: var(--SmartThemeBodyColor, #eee);
     border-top: 1px solid var(--SmartThemeBorderColor, #555);
-    z-index: 100000;
+    z-index: 2147483647 !important;
     font-size: 13px;
     box-shadow: 0 -4px 12px rgba(0, 0, 0, 0.5);
 }

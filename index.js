@@ -304,12 +304,39 @@ function addSettingsUi() {
     });
 }
 
-(function init() {
-    getSettings();
-    addSettingsUi();
-    ensureUi();
-    applyState();
+function safeCall(label, fn) {
+    try {
+        fn();
+    } catch (err) {
+        console.error(`[Mobile CSS Inspector] ${label} failed:`, err);
+        if (typeof toastr !== 'undefined') {
+            toastr.error(`${label} failed: ${err.message}`, 'Mobile CSS Inspector', { timeOut: 8000 });
+        }
+    }
+}
 
-    // Capture phase so we intercept before any button/link handlers run.
-    document.addEventListener('click', handleDocumentClick, true);
+(function init() {
+    // This toast fires no matter what happens next, so you can tell from
+    // your phone alone whether the extension script is even executing.
+    if (typeof toastr !== 'undefined') {
+        toastr.info('Mobile CSS Inspector script loaded', 'Mobile CSS Inspector', { timeOut: 4000 });
+    } else {
+        console.log('[Mobile CSS Inspector] toastr not available, but script is running');
+    }
+
+    safeCall('getSettings', getSettings);
+    safeCall('addSettingsUi', addSettingsUi);
+    safeCall('ensureUi', ensureUi);
+    safeCall('applyState', applyState);
+
+    safeCall('attach click listener', () => {
+        // Capture phase so we intercept before any button/link handlers run.
+        document.addEventListener('click', handleDocumentClick, true);
+    });
+
+    if (fabEl) {
+        console.log('[Mobile CSS Inspector] FAB element created and appended:', fabEl.isConnected);
+    } else {
+        console.error('[Mobile CSS Inspector] FAB element was never created');
+    }
 })();
