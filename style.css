@@ -41,17 +41,19 @@
 
 #mci-panel {
     position: fixed !important;
-    left: 0;
-    right: 0;
-    bottom: 0;
-    max-height: 60vh;
+    top: calc(120px + env(safe-area-inset-top, 0px)) !important;
+    left: 10px !important;
+    right: 10px !important;
+    bottom: auto !important;
+    max-height: 65vh;
     overflow-y: auto;
     background: var(--SmartThemeBlurTintColor, #1e1e1e);
     color: var(--SmartThemeBodyColor, #eee);
-    border-top: 1px solid var(--SmartThemeBorderColor, #555);
+    border: 1px solid var(--SmartThemeBorderColor, #555);
+    border-radius: 10px;
     z-index: 2147483647 !important;
     font-size: 13px;
-    box-shadow: 0 -4px 12px rgba(0, 0, 0, 0.5);
+    box-shadow: 0 4px 16px rgba(0, 0, 0, 0.6);
 }
 
 .mci-panel-header {
