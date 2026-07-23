@@ -258,6 +258,35 @@ function showPanel(el) {
     });
 }
 
+function handlePointerDownCapture(e) {
+    const target = e.target;
+
+    // Always protect the FAB itself: stop propagation before other popups/menus 
+    // detect an "outside click" based on mousedown/pointerdown.
+    if (fabEl && (target === fabEl || fabEl.contains(target))) {
+        e.stopPropagation();
+        e.stopImmediatePropagation();
+        return;
+    }
+
+    const settings = getSettings();
+    if (!settings.enabled) {
+        return;
+    }
+
+    if (isOwnElement(target)) {
+        e.stopPropagation();
+        e.stopImmediatePropagation();
+        return;
+    }
+
+    // While in inspect mode: block event here before scroll/focus/other handlers react, 
+    // so the screen remains "frozen" in its current state.
+    e.preventDefault();
+    e.stopPropagation();
+    e.stopImmediatePropagation();
+}
+
 function handleDocumentClick(e) {
     const settings = getSettings();
     if (!settings.enabled) {
@@ -329,9 +358,10 @@ function safeCall(label, fn) {
     safeCall('ensureUi', ensureUi);
     safeCall('applyState', applyState);
 
-    safeCall('attach click listener', () => {
+    safeCall('attach event listeners', () => {
         // Capture phase so we intercept before any button/link handlers run.
         document.addEventListener('click', handleDocumentClick, true);
+        document.addEventListener('pointerdown', handlePointerDownCapture, true);
     });
 
     if (fabEl) {
